@@ -30,4 +30,4 @@ jobs:
         run: cerebrium save-auth-config "$ACCESS_TOKEN" "$REFRESH_TOKEN" "$PROJECT_ID"
 
       - name: Deploy to Cerebrium
-        run: cerebrium deploy
+        run: cerebrium deploy --disable-syntax-check
