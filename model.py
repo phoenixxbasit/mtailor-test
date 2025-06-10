@@ -233,18 +233,6 @@ class ModelService:
         
     def _load_imagenet_labels(self) -> List[str]:
         """Load ImageNet class labels."""
-        # For this implementation, we'll create a simple mapping
-        # In production, you'd load from a proper labels file
-        try:
-            # Try to load from file if available
-            labels_path = Path("imagenet_labels.txt")
-            if labels_path.exists():
-                with open(labels_path, 'r') as f:
-                    return [line.strip() for line in f.readlines()]
-        except Exception as e:
-            logger.warning(f"Could not load labels file: {e}")
-        
-        # Return generic labels if file not found
         return [f"class_{i}" for i in range(1000)]
     
     def predict_image(self, image_input: Union[str, bytes, np.ndarray, Image.Image],
