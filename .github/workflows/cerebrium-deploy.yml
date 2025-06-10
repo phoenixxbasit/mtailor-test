@@ -1,0 +1,33 @@
+name: Deploy to Cerebrium
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Cerebrium Deployment
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Cerebrium CLI
+        run: pip install cerebrium
+
+      - name: Add Cerebrium Auth Keys
+        run: cerebrium save-auth-config "$ACCESS_TOKEN" "$REFRESH_TOKEN" "$PROJECT_ID"
+
+      - name: Deploy to Cerebrium
+        run: cerebrium deploy
