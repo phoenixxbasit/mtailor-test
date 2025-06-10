@@ -31,4 +31,4 @@ jobs:
 
       - name: Deploy to Cerebrium
         run: | 
-          Y | cerebrium deploy --disable-syntax-check
+          yes | cerebrium deploy --disable-syntax-check
